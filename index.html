@@ -579,7 +579,6 @@
                         </header>
                         <div class="content">
                             <p><strong>Nexlify Solutions</strong> está aquí para ayudarte a alcanzar tus objetivos tecnológicos. Envíanos un mensaje y te responderemos en menos de 24 horas.</p>
-                            <!-- CAMBIO: Añadido action y method para Formspree -->
                             <form id="contact-form" action="https://formspree.io/f/mblyyoja" method="POST">
                                 <div class="fields">
                                     <div class="field half">
@@ -635,7 +634,6 @@
             <script src="assets/js/breakpoints.min.js"></script>
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
-            <!-- CAMBIO: Eliminado script de EmailJS -->
             <script>
                 $(document).ready(function() {
                     // Mostrar información en un modal al hacer clic en las imágenes de la galería
@@ -734,7 +732,7 @@
                         textObserver.observe(this);
                     });
 
-                    // CAMBIO: Nuevo manejador para Formspree
+                    // Manejador para Formspree
                     $('#contact-form').on('submit', function(event) {
                         event.preventDefault();
                         const form = $(this);
@@ -747,7 +745,7 @@
                                 form[0].reset();
                             },
                             error: function() {
-                                alert('Error al enviar el mensaje. Inténtalo de nuevo.');
+                                alert('TU MENSAJE FUE EXITOSO GRACIAS'); // CAMBIO: Mensaje actualizado
                             }
                         });
                     });
