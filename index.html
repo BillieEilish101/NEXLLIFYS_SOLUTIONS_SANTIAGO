@@ -14,12 +14,379 @@
         <link rel="stylesheet" href="assets/css/main.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
-            /* (Estilos omitidos para brevedad, usa los mismos del código anterior) */
+            /* Background */
+            body {
+                background: url('images/0.jpg') no-repeat center center fixed;
+                background-size: cover;
+                background-color: #87CEEB; /* Azul claro inspirado en Minecraft Legends */
+                color: #1E40AF; /* Royal blue */
+                overflow-x: hidden;
+            }
+
+            /* Wrapper styling */
+            #wrapper {
+                background-color: rgba(50, 50, 50, 0.9); /* Fondo oscuro semitransparente */
+                padding: 2em;
+                border-radius: 8px;
+                box-shadow: 0 0 20px #00FF00; /* Sombra verde brillante */
+                border: 4px solid #00FFFF; /* Azul fosforescente */
+                border-style: inset;
+            }
+
+            /* Section animations */
+            section {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease, transform 0.6s ease;
+            }
+            section.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Titles */
+            h1, h2, h3 {
+                color: #22C55E; /* Bright green */
+                background-color: #8B4513; /* Fondo café */
+                border: 4px solid #F97316; /* Bright orange */
+                border-style: outset;
+                padding: 0.5em;
+                display: inline-block;
+                text-shadow: 0 0 6px #1E40AF;
+                position: relative;
+                overflow: hidden;
+            }
+            h1 {
+                font-size: 2.5em; /* Reducido de ~3em (valor por defecto en main.css) para evitar que la "s" se corte */
+            }
+            h1:hover, h2:hover, h3:hover {
+                animation: shine 1s ease;
+            }
+            @keyframes shine {
+                0% { background-position: -100%; }
+                100% { background-position: 100%; }
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            }
+
+            /* Text animations */
+            p, li:not(.feature-icons li) {
+                color: #FFFFFF; /* Blanco para mejor legibilidad */
+                transition: transform 0.3s ease, text-shadow 0.3s ease;
+                text-shadow: 0 0 10px #98FB98; /* Brillo verde claro */
+                animation: glowTextRealTime 2s infinite ease-in-out; /* Animación de brillo en tiempo real */
+            }
+            p:hover, li:not(.feature-icons li):hover {
+                transform: translateY(-3px);
+                text-shadow: 0 0 15px #98FB98; /* Brillo más intenso al pasar el mouse */
+                animation: glowText 0.6s ease;
+            }
+            @keyframes glowText {
+                0% { text-shadow: 0 0 5px #98FB98; }
+                50% { text-shadow: 0 0 15px #98FB98; }
+                100% { text-shadow: 0 0 5px #98FB98; }
+            }
+            @keyframes glowTextRealTime {
+                0% { text-shadow: 0 0 10px #98FB98, 0 0 20px #98FB98; }
+                50% { text-shadow: 0 0 15px #98FB98, 0 0 30px #98FB98; }
+                100% { text-shadow: 0 0 10px #98FB98, 0 0 20px #98FB98; }
+            }
+
+            /* Feature icons specific styling */
+            .feature-icons li {
+                color: #FFFFFF; /* Blanco para legibilidad */
+                transition: transform 0.3s ease;
+                border: 2px solid #F97316; /* Borde naranja */
+                padding: 0.5em;
+                border-radius: 5px;
+            }
+            .feature-icons li:hover {
+                transform: translateY(-1px); /* Movimiento más sutil */
+            }
+
+            /* Contact info styling */
+            .items li a[href^="mailto"], .items li a[href^="tel"] {
+                color: #FFFF00; /* Amarillo */
+                text-shadow: none; /* Sin iluminación */
+            }
+
+            /* Form inputs styling (Apple-like design) */
+            .field input, .field textarea {
+                background: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+                border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+                border-radius: 8px;
+                color: #FFFFFF; /* Texto blanco */
+                padding: 0.75em;
+                font-size: 1em;
+                backdrop-filter: blur(10px); /* Efecto de desenfoque */
+                transition: border-color 0.3s ease;
+            }
+            .field input:focus, .field textarea:focus {
+                border-color: rgba(255, 255, 255, 0.7); /* Borde más claro al enfocar */
+                outline: none;
+            }
+            .field input::placeholder, .field textarea::placeholder {
+                color: rgba(255, 255, 255, 0.7); /* Placeholder claro */
+            }
+
+            /* Buttons */
+            .button, .button.primary, .button.large {
+                background-color: #1E40AF; /* Royal blue */
+                color: #FFFFFF !important;
+                border: 4px solid #98FB98; /* Borde verde claro */
+                border-style: outset;
+                padding: 0.5em 1em;
+                animation: swayButton 2s infinite ease-in-out;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .button:hover, .button.primary:hover, .button.large:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 15px #98FB98; /* Sombra verde clara */
+                animation: none;
+            }
+            @keyframes swayButton {
+                0% { transform: translateX(-2px); }
+                50% { transform: translateX(2px); }
+                100% { transform: translateX(-2px); }
+            }
+
+            /* Cybersecurity icons */
+            .feature-icons .icon {
+                color: #EF4444; /* Red */
+                transition: transform 0.3s ease, filter 0.3s ease;
+            }
+            .feature-icons .icon:hover {
+                transform: scale(1.5);
+                filter: drop-shadow(0 0 10px #EF4444);
+                animation: pulseIcon 0.6s ease;
+            }
+            @keyframes pulseIcon {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.7); }
+                100% { transform: scale(1.5); }
+            }
+
+            /* Social media icons */
+            .icons .fa-facebook-f {
+                color: #1877F2; /* Facebook official blue */
+            }
+            .icons .fa-whatsapp {
+                color: #25D366; /* WhatsApp official green */
+            }
+            .icons a:hover {
+                transform: rotate(360deg);
+                animation: spinSocial 0.8s ease;
+            }
+            @keyframes spinSocial {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+            /* Modal styling */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                z-index: 1000;
+                overflow-y: auto;
+            }
+            .modal-content {
+                background: #2F2F2F; /* Fondo negro grisáceo */
+                margin: 5% auto;
+                padding: 40px;
+                border-radius: 15px;
+                max-width: 600px;
+                width: 80%;
+                min-height: 400px;
+                text-align: left;
+                font-size: 1.4em;
+                line-height: 1.6;
+                color: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                border: 4px solid #98FB98; /* Borde verde claro */
+                animation: zoomIn 0.6s ease;
+            }
+            @keyframes zoomIn {
+                0% { opacity: 0; transform: scale(0.5); }
+                100% { opacity: 1; transform: scale(1); }
+            }
+            .modal-close {
+                cursor: pointer;
+                color: #ff0000;
+                font-weight: bold;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 2em;
+                transition: transform 0.3s ease;
+            }
+            .modal-close:hover {
+                transform: rotate(90deg);
+            }
+
+            /* Video and info box for "Conoce Más" */
+            .video-container {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 30%;
+                transform: translate(-50%, -50%);
+                z-index: 1001;
+                max-width: 800px;
+                width: 45%;
+                margin-right: 20px;
+            }
+            .video-container.active {
+                display: block;
+                animation: slideInLeft 0.6s ease;
+            }
+            .video-container iframe {
+                width: 100%;
+                height: 450px;
+                border-radius: 15px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                border: 4px solid transparent;
+                animation: rgbGlow 3s infinite ease-in-out;
+            }
+            @keyframes rgbGlow {
+                0% { border-color: #FF0000; box-shadow: 0 0 15px #FF0000; }
+                33% { border-color: #00FF00; box-shadow: 0 0 15px #00FF00; }
+                66% { border-color: #0000FF; box-shadow: 0 0 15px #0000FF; }
+                100% { border-color: #FF0000; box-shadow: 0 0 15px #FF0000; }
+            }
+            .video-info {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 70%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.95);
+                color: white;
+                padding: 40px;
+                border-radius: 15px;
+                z-index: 1001;
+                max-width: 600px;
+                width: 35%;
+                min-height: 450px;
+                text-align: left;
+                font-size: 1.4em;
+                line-height: 1.6;
+                overflow-y: auto;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            }
+            .video-info.active {
+                display: block;
+                animation: slideInRight 0.6s ease;
+            }
+            @keyframes slideInLeft {
+                0% { opacity: 0; transform: translate(-70%, -50%); }
+                100% { opacity: 1; transform: translate(-50%, -50%); }
+            }
+            @keyframes slideInRight {
+                0% { opacity: 0; transform: translate(-30%, -50%); }
+                100% { opacity: 1; transform: translate(-50%, -50%); }
+            }
+            .video-info .close {
+                cursor: pointer;
+                color: #ff0000;
+                font-weight: bold;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 2em;
+                transition: transform 0.3s ease;
+            }
+            .video-info .close:hover {
+                transform: rotate(90deg);
+            }
+
+            /* Background dimming when video plays */
+            .video-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+            }
+            .video-overlay.active {
+                display: block;
+            }
+
+            /* Gallery images */
+            .gallery a img {
+                animation: tiltImage 3s infinite ease-in-out;
+                transition: transform 0.3s ease, filter 0.3s ease;
+            }
+            .gallery a img:hover {
+                transform: scale(1.1);
+                filter: brightness(1.2);
+                animation: none;
+            }
+            @keyframes tiltImage {
+                0% { transform: rotate(-1deg); }
+                50% { transform: rotate(1deg); }
+                100% { transform: rotate(-1deg); }
+            }
+
+            /* Dragon Ball Z SVG icon styling */
+            .dbz-icon {
+                fill: #F97316; /* Naranja brillante */
+                width: 2em;
+                height: 2em;
+                margin-left: 0.5em;
+                transition: fill 0.3s ease, transform 0.3s ease;
+                display: inline-block;
+                transform: scaleX(1.2); /* Alarga ligeramente */
+            }
+            .dbz-icon:hover {
+                fill: #FF4500; /* Naranja más intenso */
+                transform: scaleX(1.3);
+            }
+            .dbz-icon.start {
+                animation: dbzStart 0.6s ease forwards;
+            }
+            @keyframes dbzStart {
+                0% { transform: scaleX(1.2) translateX(0); }
+                20% { transform: scaleX(1.2) translateX(5px) rotate(2deg); } /* Vibración inicial */
+                40% { transform: scaleX(1.2) translateX(-5px) rotate(-2deg); } /* Vibración inversa */
+                60% { transform: scaleX(1.2) translateX(20px); } /* Aceleración */
+                100% { transform: scaleX(1.2) translateX(50px); opacity: 0; } /* Desaparece hacia la derecha */
+            }
+
+            /* Media query for responsive design */
+            @media (max-width: 1200px) {
+                .video-container {
+                    left: 50%;
+                    transform: translate(-50%, -100%);
+                    width: 80%;
+                    margin-right: 0;
+                }
+                .video-info {
+                    left: 50%;
+                    transform: translate(-50%, 50%);
+                    width: 80%;
+                }
+                .dbz-icon {
+                    width: 1.5em;
+                    height: 1.5em; /* Tamaño más pequeño en pantallas pequeñas */
+                }
+                h1 {
+                    font-size: 2em; /* Tamaño aún más pequeño en pantallas móviles */
+                }
+            }
         </style>
     </head>
     <body class="is-preload">
+
         <!-- Video overlay -->
         <div class="video-overlay"></div>
+
         <!-- Modal for image information -->
         <div id="image-modal" class="modal">
             <div class="modal-content">
@@ -27,222 +394,348 @@
                 <div id="modal-info"></div>
             </div>
         </div>
+
         <!-- Wrapper -->
-        <div id="wrapper">
-            <!-- Intro -->
-            <section class="intro">
-                <header>
-                    <h1>Nexlify Solutions</h1>
-                    <p>Transformamos tu visión en soluciones tecnológicas innovadoras. Fundada por expertos en informática, ofrecemos consultoría de vanguardia.</p>
-                    <ul class="actions">
-                        <li><a href="#first" class="dbz-icon scrolly"><svg class="dbz-icon" viewBox="0 0 512 512"><path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg><span class="label">Siguiente</span></a></li>
-                    </ul>
-                </header>
-                <div class="content">
-                    <span class="image fill" data-position="center"><img src="images/pic01.jpg" alt="Innovación tecnológica" data-info="Nexlify Solutions impulsa la innovación tecnológica con servicios integrales que abarcan desde la consultoría estratégica hasta la implementación de soluciones avanzadas. Nuestro enfoque combina tecnología de punta con estrategias personalizadas para garantizar que tu empresa se mantenga a la vanguardia en un entorno digital competitivo. Ofrecemos soporte continuo, análisis de tendencias tecnológicas y soluciones escalables que se adaptan a las necesidades de tu negocio, asegurando un crecimiento sostenible y eficiente." /></span>
-                </div>
-            </section>
-            <!-- Section -->
-            <section id="first">
-                <header><h2>Soluciones Tecnológicas Personalizadas<a href="#ciberseguridad" class="dbz-icon scrolly"><svg class="dbz-icon" viewBox="0 0 512 512"><path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg></a></h2></header>
-                <div class="content"><p><strong>Nexlify Solutions</strong> ofrece servicios de consultoría informática adaptados a las necesidades de tu empresa. Desde la implementación de sistemas ERP hasta la optimización de procesos digitales, nuestro equipo de expertos te acompaña en cada paso hacia la transformación digital.</p><span class="image main"><img src="images/pic02.jpg" alt="Consultoría en acción" data-info="Nuestros servicios de consultoría personalizada incluyen un análisis exhaustivo de los procesos empresariales, diseño de soluciones a medida y soporte continuo. Nos especializamos en la implementación de sistemas ERP que integran todas las áreas de tu negocio, desde finanzas hasta logística, optimizando la eficiencia operativa en hasta un 40%. Además, ofrecemos auditorías tecnológicas, capacitación para equipos y estrategias de adopción digital para garantizar una transición fluida hacia la modernización." /></span></div>
-            </section>
-            <!-- Section -->
-            <section id="ciberseguridad">
-                <header><h2>Ciberseguridad y Protección de Datos<a href="#software" class="dbz-icon scrolly"><svg class="dbz-icon" viewBox="0 0 512 512"><path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg></a></h2></header>
-                <div class="content"><p><strong>Protegemos tu negocio</strong> con soluciones avanzadas de ciberseguridad. Implementamos firewalls, sistemas de detección de intrusos y estrategias de respaldo para garantizar la continuidad de tus operaciones.</p><ul class="feature-icons"><li class="icon solid fas fa-network-wired">Seguridad de redes</li><li class="icon solid fas fa-user-lock">Encriptación de datos</li><li class="icon solid fas fa-cloud-upload-alt">Respaldo en la nube</li><li class="icon solid fas fa-exclamation-circle">Detección de amenazas</li><li class="icon solid fas fa-chalkboard-teacher">Capacitación en ciberseguridad</li><li class="icon solid fas fa-clipboard-check">Cumplimiento normativo</li></ul><p>Con Nexlify, tu empresa estará protegida contra las amenazas digitales más avanzadas, asegurando la confidencialidad y disponibilidad de tu información.</p></div>
-            </section>
-            <!-- Section -->
-            <section id="software">
-                <header><h2>Desarrollo de Software a Medida<a href="#proyectos" class="dbz-icon scrolly"><svg class="dbz-icon" viewBox="0 0 512 512"><path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg></a></h2></header>
-                <div class="content"><p><strong>Creamos soluciones únicas</strong> que impulsan tu negocio. Desde aplicaciones móviles hasta plataformas web, nuestro equipo desarrolla software escalable y eficiente.</p><section id="proyectos"><header><h3>Proyectos Innovadores<a href="#nube" class="dbz-icon scrolly"><svg class="dbz-icon" viewBox="0 0 512 512"><path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg></a></h3><p>Explora algunos de nuestros proyectos destacados que han transformado la forma en que las empresas operan en la era digital.</p></header><div class="content"><div class="gallery"><a href="#" class="landscape" data-info="Plataforma de gestión empresarial que optimiza procesos operativos en un 30%, integrando módulos de contabilidad, inventario y CRM. Esta solución permite a las empresas centralizar sus operaciones, reducir tiempos de respuesta y mejorar la toma de decisiones con reportes en tiempo real y análisis predictivo."><img src="images/gallery/thumbs/01.jpg" alt="Gestión Empresarial" /></a><a href="#" data-info="Aplicación móvil para comercio electrónico con integración de pagos seguros, soporte multilingüe y experiencia de usuario optimizada. Diseñada para aumentar las ventas en línea, esta app ofrece notificaciones push, personalización de productos y una interfaz intuitiva que mejora la retención de clientes."><img src="images/gallery/thumbs/02.jpg" alt="E-Commerce Móvil" /></a><a href="#" data-info="Sistema de análisis de datos en tiempo real que permite la toma de decisiones estratégicas basadas en métricas precisas. Incluye visualizaciones interactivas, integración con múltiples fuentes de datos y algoritmos de machine learning para prever tendencias de mercado."><img src="images/gallery/thumbs/03.jpg" alt="Análisis de Datos" /></a><a href="#" class="landscape" data-info="Automatización de procesos con inteligencia artificial que mejora la productividad mediante flujos de trabajo optimizados. Esta solución utiliza aprendizaje automático para identificar ineficiencias y propone mejoras automáticas, reduciendo costos operativos en hasta un 35%."><img src="images/gallery/thumbs/04.jpg" alt="Automatización IA" /></a></div></div></section><section id="nube"><header><h3>Soluciones en la Nube<a href="#automatizacion" class="dbz-icon scrolly"><svg class="dbz-icon" viewBox="0 0 512 512"><path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg></a></h3><p>Lleva tu empresa al siguiente nivel con nuestras soluciones basadas en la nube, diseñadas para ofrecer flexibilidad y escalabilidad.</p></header><div class="content"><div class="gallery"><a href="#" class="landscape" data-info="Infraestructura en la nube para empresas con alta disponibilidad y seguridad, soportando cargas de trabajo críticas con 99.9% de uptime. Incluye balanceo de carga, redundancia de datos y monitoreo continuo para garantizar un rendimiento óptimo."><img src="images/gallery/thumbs/05.jpg" alt="Infraestructura Nube" /></a><a href="#" data-info="Plataforma colaborativa en la nube que mejora la productividad de equipos remotos con herramientas de comunicación, gestión de proyectos y almacenamiento seguro. Compatible con integraciones de terceros y accesible desde cualquier dispositivo."><img src="images/gallery/thumbs/06.jpg" alt="Colaboración Remota" /></a><a href="#" data-info="Migración de datos a la nube con zero downtime, asegurando una transición sin interrupciones. Incluye planificación estratégica, pruebas de compatibilidad y optimización de costos para maximizar el retorno de inversión."><img src="images/gallery/thumbs/07.jpg" alt="Migración Nube" /></a></div></div></section><section id="automatizacion"><header><h3>Automatización Empresarial<a href="#transformacion" class="dbz-icon scrolly"><svg class="dbz-icon" viewBox="0 0 512 512"><path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg></a></h3><p>Optimiza tus operaciones con nuestras soluciones de automatización que reducen costos y mejoran la eficiencia.</p></header><div class="content"><div class="gallery"><a href="#" class="portrait" data-info="Automatización de flujos de trabajo con integración de APIs, permitiendo conexiones fluidas entre sistemas empresariales. Esta solución reduce el tiempo de procesamiento en un 50% y mejora la colaboración interdepartamental."><img src="images/gallery/thumbs/08.jpg" alt="Flujos de Trabajo" /></a><a href="#" class="portrait" data-info="Chatbots inteligentes para atención al cliente 24/7, con capacidades de procesamiento de lenguaje natural. Estos chatbots aprenden de las interacciones para ofrecer respuestas más precisas, mejorando la satisfacción del cliente en un 20%."><img src="images/gallery/thumbs/09.jpg" alt="Chatbots IA" /></a><a href="#" class="landscape" data-info="Sistemas RPA para tareas repetitivas en contabilidad, reduciendo errores humanos y ahorrando hasta un 40% en tiempo operativo. Incluye automatización de facturación, conciliaciones y reportes financieros."><img src="images/gallery/thumbs/10.jpg" alt="RPA Contabilidad" /></a></div></div></section></div>
-            </section>
-            <!-- Section -->
-            <section id="transformacion">
-                <header><h2>Únete a la Transformación Digital<a href="#contact" class="dbz-icon scrolly"><svg class="dbz-icon" viewBox="0 0 512 512"><path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/></svg></a></h2></header>
-                <div class="content"><p><strong>Empieza hoy</strong> a modernizar tu empresa con Nexlify Solutions. Contáctanos para una consulta gratuita y descubre cómo podemos ayudarte.</p><ul class="actions"><li><a href="#contact" class="button primary large">Contáctanos</a></li><li><a href="#" class="button large know-more" data-info="Descubre cómo Nexlify Solutions puede transformar tu empresa con soluciones tecnológicas innovadoras. Ofrecemos consultoría estratégica, desarrollo de software a medida, ciberseguridad avanzada y automatización empresarial. Nuestro enfoque se basa en entender tus necesidades específicas, diseñar soluciones escalables y proporcionar soporte continuo para garantizar el éxito a largo plazo.">Conoce Más</a></li></ul></div>
-            </section>
-            <!-- Section -->
-            <section id="contact">
-                <header>
-                    <h2>Contáctanos
-                        <a href="#wrapper" class="dbz-icon scrolly">
-                            <svg class="dbz-icon" viewBox="0 0 512 512">
-                                <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
-                            </svg>
-                        </a>
-                    </h2>
-                </header>
-                <div class="content">
-                    <p><strong>Nexlify Solutions</strong> está aquí para ayudarte a alcanzar tus objetivos tecnológicos. Envíanos un mensaje y te responderemos en menos de 24 horas.</p>
-                    <form id="contact-form" method="POST">
-                        <div class="fields">
-                            <div class="field half">
-                                <input type="text" name="user_name" id="name" placeholder="Nombre" required />
-                            </div>
-                            <div class="field half">
-                                <input type="email" name="user_email" id="email" placeholder="Correo Electrónico" required />
-                            </div>
-                            <div class="field">
-                                <textarea name="message" id="message" placeholder="Mensaje" rows="7" required></textarea>
-                            </div>
-                        </div>
-                        <ul class="actions">
-                            <li><input type="submit" value="Enviar Mensaje" class="button primary" /></li>
-                        </ul>
-                    </form>
-                </div>
-                <footer>
-                    <ul class="items">
-                        <li>
-                            <h3>Correo</h3>
-                            <a href="mailto:nexlifysolutions1@gmail.com">nexlifysolutions1@gmail.com</a>
-                        </li>
-                        <li>
-                            <h3>Teléfono</h3>
-                            <a href="tel:+525520881727">+52 55 2088 1727</a>
-                        </li>
-                        <li>
-                            <h3>Dirección</h3>
-                            <span>Av. Innovación 123, Ciudad de México, CDMX 06600, México</span>
-                        </li>
-                        <li>
-                            <h3>Redes Sociales</h3>
-                            <ul class="icons">
-                                <li><a href="https://www.facebook.com/share/g/1Bq6o6FyKN/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-                                <li><a href="https://www.instagram.com/nexlifysolutions/" class="icon brands fa-instagram" style="color: #E1306C;"><span class="label">Instagram</span></a></li>
-                                <li><a href="https://wa.me/525520881727" class="icon brands fa-whatsapp"><span class="label">WhatsApp</span></a></li>
+            <div id="wrapper">
+
+                <!-- Intro -->
+                    <section class="intro">
+                        <header>
+                            <h1>Nexlify Solutions</h1>
+                            <p>Transformamos tu visión en soluciones tecnológicas innovadoras. Fundada por expertos en informática, ofrecemos consultoría de vanguardia.</p>
+                            <ul class="actions">
+                                <li>
+                                    <a href="#first" class="dbz-icon scrolly">
+                                        <svg class="dbz-icon" viewBox="0 0 512 512">
+                                            <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                        </svg>
+                                        <span class="label">Siguiente</span>
+                                    </a>
+                                </li>
                             </ul>
-                        </li>
-                    </ul>
-                </footer>
-            </section>
-            <!-- Copyright -->
-            <div class="copyright">© Nexlify Solutions. Todos los derechos reservados. Diseño: <a href="https://html5up.net">HTML5 UP</a>.</div>
-        </div>
+                        </header>
+                        <div class="content">
+                            <span class="image fill" data-position="center">
+                                <img src="images/pic01.jpg" alt="Innovación tecnológica" data-info="Nexlify Solutions impulsa la innovación tecnológica con servicios integrales que abarcan desde la consultoría estratégica hasta la implementación de soluciones avanzadas. Nuestro enfoque combina tecnología de punta con estrategias personalizadas para garantizar que tu empresa se mantenga a la vanguardia en un entorno digital competitivo. Ofrecemos soporte continuo, análisis de tendencias tecnológicas y soluciones escalables que se adaptan a las necesidades de tu negocio, asegurando un crecimiento sostenible y eficiente." />
+                            </span>
+                        </div>
+                    </section>
+
+                <!-- Section -->
+                    <section id="first">
+                        <header>
+                            <h2>Soluciones Tecnológicas Personalizadas
+                                <a href="#ciberseguridad" class="dbz-icon scrolly">
+                                    <svg class="dbz-icon" viewBox="0 0 512 512">
+                                        <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                    </svg>
+                                </a>
+                            </h2>
+                        </header>
+                        <div class="content">
+                            <p><strong>Nexlify Solutions</strong> ofrece servicios de consultoría informática adaptados a las necesidades de tu empresa. Desde la implementación de sistemas ERP hasta la optimización de procesos digitales, nuestro equipo de expertos te acompaña en cada paso hacia la transformación digital.</p>
+                            <span class="image main">
+                                <img src="images/pic02.jpg" alt="Consultoría en acción" data-info="Nuestros servicios de consultoría personalizada incluyen un análisis exhaustivo de los procesos empresariales, diseño de soluciones a medida y soporte continuo. Nos especializamos en la implementación de sistemas ERP que integran todas las áreas de tu negocio, desde finanzas hasta logística, optimizando la eficiencia operativa en hasta un 40%. Además, ofrecemos auditorías tecnológicas, capacitación para equipos y estrategias de adopción digital para garantizar una transición fluida hacia la modernización." />
+                            </span>
+                        </div>
+                    </section>
+
+                <!-- Section -->
+                    <section id="ciberseguridad">
+                        <header>
+                            <h2>Ciberseguridad y Protección de Datos
+                                <a href="#software" class="dbz-icon scrolly">
+                                    <svg class="dbz-icon" viewBox="0 0 512 512">
+                                        <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                    </svg>
+                                </a>
+                            </h2>
+                        </header>
+                        <div class="content">
+                            <p><strong>Protegemos tu negocio</strong> con soluciones avanzadas de ciberseguridad. Implementamos firewalls, sistemas de detección de intrusos y estrategias de respaldo para garantizar la continuidad de tus operaciones.</p>
+                            <ul class="feature-icons">
+                                <li class="icon solid fas fa-network-wired">Seguridad de redes</li>
+                                <li class="icon solid fas fa-user-lock">Encriptación de datos</li>
+                                <li class="icon solid fas fa-cloud-upload-alt">Respaldo en la nube</li>
+                                <li class="icon solid fas fa-exclamation-circle">Detección de amenazas</li>
+                                <li class="icon solid fas fa-chalkboard-teacher">Capacitación en ciberseguridad</li>
+                                <li class="icon solid fas fa-clipboard-check">Cumplimiento normativo</li>
+                            </ul>
+                            <p>Con Nexlify, tu empresa estará protegida contra las amenazas digitales más avanzadas, asegurando la confidencialidad y disponibilidad de tu información.</p>
+                        </div>
+                    </section>
+
+                <!-- Section -->
+                    <section id="software">
+                        <header>
+                            <h2>Desarrollo de Software a Medida
+                                <a href="#proyectos" class="dbz-icon scrolly">
+                                    <svg class="dbz-icon" viewBox="0 0 512 512">
+                                        <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                    </svg>
+                                </a>
+                            </h2>
+                        </header>
+                        <div class="content">
+                            <p><strong>Creamos soluciones únicas</strong> que impulsan tu negocio. Desde aplicaciones móviles hasta plataformas web, nuestro equipo desarrolla software escalable y eficiente.</p>
+
+                            <!-- Section -->
+                                <section id="proyectos">
+                                    <header>
+                                        <h3>Proyectos Innovadores
+                                            <a href="#nube" class="dbz-icon scrolly">
+                                                <svg class="dbz-icon" viewBox="0 0 512 512">
+                                                    <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                                </svg>
+                                            </a>
+                                        </h3>
+                                        <p>Explora algunos de nuestros proyectos destacados que han transformado la forma en que las empresas operan en la era digital.</p>
+                                    </header>
+                                    <div class="content">
+                                        <div class="gallery">
+                                            <a href="#" class="landscape" data-info="Plataforma de gestión empresarial que optimiza procesos operativos en un 30%, integrando módulos de contabilidad, inventario y CRM. Esta solución permite a las empresas centralizar sus operaciones, reducir tiempos de respuesta y mejorar la toma de decisiones con reportes en tiempo real y análisis predictivo."><img src="images/gallery/thumbs/01.jpg" alt="Gestión Empresarial" /></a>
+                                            <a href="#" data-info="Aplicación móvil para comercio electrónico con integración de pagos seguros, soporte multilingüe y experiencia de usuario optimizada. Diseñada para aumentar las ventas en línea, esta app ofrece notificaciones push, personalización de productos y una interfaz intuitiva que mejora la retención de clientes."><img src="images/gallery/thumbs/02.jpg" alt="E-Commerce Móvil" /></a>
+                                            <a href="#" data-info="Sistema de análisis de datos en tiempo real que permite la toma de decisiones estratégicas basadas en métricas precisas. Incluye visualizaciones interactivas, integración con múltiples fuentes de datos y algoritmos de machine learning para prever tendencias de mercado."><img src="images/gallery/thumbs/03.jpg" alt="Análisis de Datos" /></a>
+                                            <a href="#" class="landscape" data-info="Automatización de procesos con inteligencia artificial que mejora la productividad mediante flujos de trabajo optimizados. Esta solución utiliza aprendizaje automático para identificar ineficiencias y propone mejoras automáticas, reduciendo costos operativos en hasta un 35%."><img src="images/gallery/thumbs/04.jpg" alt="Automatización IA" /></a>
+                                        </div>
+                                    </div>
+                                </section>
+
+                            <!-- Section -->
+                                <section id="nube">
+                                    <header>
+                                        <h3>Soluciones en la Nube
+                                            <a href="#automatizacion" class="dbz-icon scrolly">
+                                                <svg class="dbz-icon" viewBox="0 0 512 512">
+                                                    <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                                </svg>
+                                            </a>
+                                        </h3>
+                                        <p>Lleva tu empresa al siguiente nivel con nuestras soluciones basadas en la nube, diseñadas para ofrecer flexibilidad y escalabilidad.</p>
+                                    </header>
+                                    <div class="content">
+                                        <div class="gallery">
+                                            <a href="#" class="landscape" data-info="Infraestructura en la nube para empresas con alta disponibilidad y seguridad, soportando cargas de trabajo críticas con 99.9% de uptime. Incluye balanceo de carga, redundancia de datos y monitoreo continuo para garantizar un rendimiento óptimo."><img src="images/gallery/thumbs/05.jpg" alt="Infraestructura Nube" /></a>
+                                            <a href="#" data-info="Plataforma colaborativa en la nube que mejora la productividad de equipos remotos con herramientas de comunicación, gestión de proyectos y almacenamiento seguro. Compatible con integraciones de terceros y accesible desde cualquier dispositivo."><img src="images/gallery/thumbs/06.jpg" alt="Colaboración Remota" /></a>
+                                            <a href="#" data-info="Migración de datos a la nube con zero downtime, asegurando una transición sin interrupciones. Incluye planificación estratégica, pruebas de compatibilidad y optimización de costos para maximizar el retorno de inversión."><img src="images/gallery/thumbs/07.jpg" alt="Migración Nube" /></a>
+                                        </div>
+                                    </div>
+                                </section>
+
+                            <!-- Section -->
+                                <section id="automatizacion">
+                                    <header>
+                                        <h3>Automatización Empresarial
+                                            <a href="#transformacion" class="dbz-icon scrolly">
+                                                <svg class="dbz-icon" viewBox="0 0 512 512">
+                                                    <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                                </svg>
+                                            </a>
+                                        </h3>
+                                        <p>Optimiza tus operaciones con nuestras soluciones de automatización que reducen costos y mejoran la eficiencia.</p>
+                                    </header>
+                                    <div class="content">
+                                        <div class="gallery">
+                                            <a href="#" class="portrait" data-info="Automatización de flujos de trabajo con integración de APIs, permitiendo conexiones fluidas entre sistemas empresariales. Esta solución reduce el tiempo de procesamiento en un 50% y mejora la colaboración interdepartamental."><img src="images/gallery/thumbs/08.jpg" alt="Flujos de Trabajo" /></a>
+                                            <a href="#" class="portrait" data-info="Chatbots inteligentes para atención al cliente 24/7, con capacidades de procesamiento de lenguaje natural. Estos chatbots aprenden de las interacciones para ofrecer respuestas más precisas, mejorando la satisfacción del cliente en un 20%."><img src="images/gallery/thumbs/09.jpg" alt="Chatbots IA" /></a>
+                                            <a href="#" class="landscape" data-info="Sistemas RPA para tareas repetitivas en contabilidad, reduciendo errores humanos y ahorrando hasta un 40% en tiempo operativo. Incluye automatización de facturación, conciliaciones y reportes financieros."><img src="images/gallery/thumbs/10.jpg" alt="RPA Contabilidad" /></a>
+                                        </div>
+                                    </div>
+                                </section>
+
+                        </div>
+                    </section>
+
+                <!-- Section -->
+                    <section id="transformacion">
+                        <header>
+                            <h2>Únete a la Transformación Digital
+                                <a href="#contact" class="dbz-icon scrolly">
+                                    <svg class="dbz-icon" viewBox="0 0 512 512">
+                                        <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                    </svg>
+                                </a>
+                            </h2>
+                        </header>
+                        <div class="content">
+                            <p><strong>Empieza hoy</strong> a modernizar tu empresa con Nexlify Solutions. Contáctanos para una consulta gratuita y descubre cómo podemos ayudarte.</p>
+                            <ul class="actions">
+                                <li><a href="#contact" class="button primary large">Contáctanos</a></li>
+                                <li><a href="#" class="button large know-more" data-info="Descubre cómo Nexlify Solutions puede transformar tu empresa con soluciones tecnológicas innovadoras. Ofrecemos consultoría estratégica, desarrollo de software a medida, ciberseguridad avanzada y automatización empresarial. Nuestro enfoque se basa en entender tus necesidades específicas, diseñar soluciones escalables y proporcionar soporte continuo para garantizar el éxito a largo plazo.">Conoce Más</a></li>
+                            </ul>
+                        </div>
+                    </section>
+
+                <!-- Section -->
+                    <section id="contact">
+                        <header>
+                            <h2>Contáctanos
+                                <a href="#wrapper" class="dbz-icon scrolly">
+                                    <svg class="dbz-icon" viewBox="0 0 512 512">
+                                        <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                    </svg>
+                                </a>
+                            </h2>
+                        </header>
+                        <div class="content">
+                            <p><strong>Nexlify Solutions</strong> está aquí para ayudarte a alcanzar tus objetivos tecnológicos. Envíanos un mensaje y te responderemos en menos de 24 horas.</p>
+                            <form action="https://formspree.io/f/{your-form-id}" method="POST">
+                                <div class="fields">
+                                    <div class="field half">
+                                        <input type="text" name="name" id="name" placeholder="Nombre" required />
+                                    </div>
+                                    <div class="field half">
+                                        <input type="email" name="email" id="email" placeholder="Correo Electrónico" required />
+                                    </div>
+                                    <div class="field half">
+                                        <input type="email" name="sender_email" id="sender_email" placeholder="Correo de quien envía" required />
+                                    </div>
+                                    <div class="field">
+                                        <textarea name="message" id="message" placeholder="Mensaje" rows="7" required></textarea>
+                                    </div>
+                                </div>
+                                <ul class="actions">
+                                    <li><input type="submit" value="Enviar Mensaje" class="button primary" /></li>
+                                </ul>
+                            </form>
+                        </div>
+                        <footer>
+                            <ul class="items">
+                                <li>
+                                    <h3>Correo</h3>
+                                    <a href="mailto:nexlifysolutions1@gmail.com">nexlifysolutions1@gmail.com</a>
+                                </li>
+                                <li>
+                                    <h3>Teléfono</h3>
+                                    <a href="tel:+525520881727">+52 55 2088 1727</a>
+                                </li>
+                                <li>
+                                    <h3>Dirección</h3>
+                                    <span>Av. Innovación 123, Ciudad de México, CDMX 06600, México</span>
+                                </li>
+                                <li>
+                                    <h3>Redes Sociales</h3>
+                                    <ul class="icons">
+                                        <li><a href="https://www.facebook.com/share/g/1Bq6o6FyKN/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                                        <li><a href="https://www.instagram.com/nexlifysolutions/" class="icon brands fa-instagram" style="color: #E1306C;"><span class="label">Instagram</span></a></li>
+                                        <li><a href="https://wa.me/525520881727" class="icon brands fa-whatsapp"><span class="label">WhatsApp</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </footer>
+                    </section>
+
+                <!-- Copyright -->
+                    <div class="copyright">© Nexlify Solutions. Todos los derechos reservados. Diseño: <a href="https://html5up.net">HTML5 UP</a>.</div>
+
+            </div>
+
         <!-- Scripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/jquery.scrolly.min.js"></script>
-        <script src="assets/js/browser.min.js"></script>
-        <script src="assets/js/breakpoints.min.js"></script>
-        <script src="assets/js/util.js"></script>
-        <script src="assets/js/main.js"></script>
-        <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-        <script>
-            // Inicializa EmailJS con tu User ID
-            emailjs.init('TU_USER_ID'); // Reemplaza con tu User ID de EmailJS
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/js/jquery.scrolly.min.js"></script>
+            <script src="assets/js/browser.min.js"></script>
+            <script src="assets/js/breakpoints.min.js"></script>
+            <script src="assets/js/util.js"></script>
+            <script src="assets/js/main.js"></script>
+            <script>
+                $(document).ready(function() {
+                    // Mostrar información en un modal al hacer clic en las imágenes de la galería
+                    $('.gallery a').on('click', function(e) {
+                        e.preventDefault();
+                        var info = $(this).data('info');
+                        $('#modal-info').html('<p>' + info + '</p>');
+                        $('#image-modal').css('display', 'block');
+                    });
 
-            // Maneja el envío del formulario
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault();
+                    // Mostrar información en un modal al hacer clic en las primeras dos imágenes
+                    $('.image img').on('click', function(e) {
+                        e.preventDefault();
+                        var info = $(this).data('info');
+                        $('#modal-info').html('<p>' + info + '</p>');
+                        $('#image-modal').css('display', 'block');
+                    });
 
-                emailjs.send('service_kszr3ud', 'TU_TEMPLATE_ID', {
-                    user_name: document.getElementById('name').value,
-                    user_email: document.getElementById('email').value,
-                    message: document.getElementById('message').value
-                }).then(function(response) {
-                    alert('¡Mensaje enviado con éxito! Te responderemos pronto.');
-                    document.getElementById('contact-form').reset();
-                    window.location.href = 'https://billieeilish101.github.io/NEXLLIFYS_SOLUTIONS_SANTIAGO/thanks.html';
-                }, function(error) {
-                    alert('Error al enviar el mensaje: ' + error.text);
-                });
-            });
+                    // Mostrar información y video al hacer clic en "Conoce Más"
+                    $('.know-more').on('click', function(e) {
+                        e.preventDefault();
+                        var info = $(this).data('info');
+                        var infoBox = $('<div class="video-info"><span class="close">X</span><p>' + info + '</p></div>');
+                        var videoContainer = $('<div class="video-container"><iframe src="https://www.youtube.com/embed/UJMGykaSPDQ" frameborder="0" allowfullscreen></iframe></div>');
+                        $('body').append(infoBox).append(videoContainer);
+                        $('.video-overlay').addClass('active');
+                        setTimeout(function() { 
+                            infoBox.addClass('active'); 
+                            videoContainer.addClass('active'); 
+                        }, 10);
+                    });
 
-            // Mostrar información en un modal al hacer clic en las imágenes de la galería
-            $('.gallery a').on('click', function(e) {
-                e.preventDefault();
-                var info = $(this).data('info');
-                $('#modal-info').html('<p>' + info + '</p>');
-                $('#image-modal').css('display', 'block');
-            });
+                    // Cerrar el modal de imágenes
+                    $('.modal-close').on('click', function() {
+                        $('#image-modal').css('display', 'none');
+                    });
 
-            // Mostrar información en un modal al hacer clic en las primeras dos imágenes
-            $('.image img').on('click', function(e) {
-                e.preventDefault();
-                var info = $(this).data('info');
-                $('#modal-info').html('<p>' + info + '</p>');
-                $('#image-modal').css('display', 'block');
-            });
-
-            // Mostrar información y video al hacer clic en "Conoce Más"
-            $('.know-more').on('click', function(e) {
-                e.preventDefault();
-                var info = $(this).data('info');
-                var infoBox = $('<div class="video-info"><span class="close">X</span><p>' + info + '</p></div>');
-                var videoContainer = $('<div class="video-container"><iframe src="https://www.youtube.com/embed/UJMGykaSPDQ" frameborder="0" allowfullscreen></iframe></div>');
-                $('body').append(infoBox).append(videoContainer);
-                $('.video-overlay').addClass('active');
-                setTimeout(function() { 
-                    infoBox.addClass('active'); 
-                    videoContainer.addClass('active'); 
-                }, 10);
-            });
-
-            // Cerrar el modal de imágenes
-            $('.modal-close').on('click', function() {
-                $('#image-modal').css('display', 'none');
-            });
-
-            // Cerrar el modal al hacer clic fuera del contenido
-            $(window).on('click', function(e) {
-                if ($(e.target).is('#image-modal')) {
-                    $('#image-modal').css('display', 'none');
-                }
-            });
-
-            // Cerrar los cuadros de información del video
-            $(document).on('click', '.video-info .close', function() {
-                $(this).parent().removeClass('active');
-                $('.video-container').removeClass('active');
-                $('.video-overlay').removeClass('active');
-                setTimeout(function() { 
-                    $('.video-info, .video-container').remove(); 
-                }, 300);
-            });
-
-            // Animación de arranque para el ícono de Dragon Ball
-            $('.dbz-icon').on('click', function(e) {
-                var $icon = $(this).find('svg');
-                $icon.addClass('start');
-                setTimeout(function() {
-                    $icon.removeClass('start');
-                    $icon.css({'transform': 'scaleX(1.2)', 'opacity': '1'});
-                }, 600);
-            });
-
-            // Scroll animations
-            const sections = $('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        $(entry.target).addClass('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            sections.each(function() {
-                observer.observe(this);
-            });
-
-            // Text and image animations
-            const textsAndImages = $('p, li, .gallery a img');
-            textsAndImages.each(function() {
-                $(this).css({ opacity: 0, transform: 'translateY(20px)' });
-                const textObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            $(entry.target).animate({
-                                opacity: 1,
-                                translateY: 0
-                            }, 600);
-                            textObserver.unobserve(entry.target);
+                    // Cerrar el modal al hacer clic fuera del contenido
+                    $(window).on('click', function(e) {
+                        if ($(e.target).is('#image-modal')) {
+                            $('#image-modal').css('display', 'none');
                         }
                     });
-                }, { threshold: 0.5 });
-                textObserver.observe(this);
-            });
-        </script>
+
+                    // Cerrar los cuadros de información del video
+                    $(document).on('click', '.video-info .close', function() {
+                        $(this).parent().removeClass('active');
+                        $('.video-container').removeClass('active');
+                        $('.video-overlay').removeClass('active');
+                        setTimeout(function() { 
+                            $('.video-info, .video-container').remove(); 
+                        }, 300);
+                    });
+
+                    // Animación de arranque para el ícono de Dragon Ball
+                    $('.dbz-icon').on('click', function(e) {
+                        var $icon = $(this).find('svg');
+                        $icon.addClass('start');
+                        setTimeout(function() {
+                            $icon.removeClass('start');
+                            // Restaurar la posición y opacidad después de la animación
+                            $icon.css({'transform': 'scaleX(1.2)', 'opacity': '1'});
+                        }, 600); // Duración de la animación
+                    });
+
+                    // Scroll animations
+                    const sections = $('section');
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                $(entry.target).addClass('visible');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    sections.each(function() {
+                        observer.observe(this);
+                    });
+
+                    // Text and image animations
+                    const textsAndImages = $('p, li, .gallery a img');
+                    textsAndImages.each(function() {
+                        $(this).css({ opacity: 0, transform: 'translateY(20px)' });
+                        const textObserver = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    $(entry.target).animate({
+                                        opacity: 1,
+                                        translateY: 0
+                                    }, 600);
+                                    textObserver.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.5 });
+                        textObserver.observe(this);
+                    });
+                });
+            </script>
+
     </body>
 </html>
