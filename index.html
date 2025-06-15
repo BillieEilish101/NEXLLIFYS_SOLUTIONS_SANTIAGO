@@ -579,16 +579,13 @@
                         </header>
                         <div class="content">
                             <p><strong>Nexlify Solutions</strong> está aquí para ayudarte a alcanzar tus objetivos tecnológicos. Envíanos un mensaje y te responderemos en menos de 24 horas.</p>
-                            <form action="https://formspree.io/f/{your-form-id}" method="POST">
+                            <form id="contact-form" method="POST">
                                 <div class="fields">
                                     <div class="field half">
-                                        <input type="text" name="name" id="name" placeholder="Nombre" required />
+                                        <input type="text" name="user_name" id="name" placeholder="Nombre" required />
                                     </div>
                                     <div class="field half">
-                                        <input type="email" name="email" id="email" placeholder="Correo Electrónico" required />
-                                    </div>
-                                    <div class="field half">
-                                        <input type="email" name="sender_email" id="sender_email" placeholder="Correo de quien envía" required />
+                                        <input type="email" name="user_email" id="email" placeholder="Correo Electrónico" required />
                                     </div>
                                     <div class="field">
                                         <textarea name="message" id="message" placeholder="Mensaje" rows="7" required></textarea>
@@ -637,103 +634,122 @@
             <script src="assets/js/breakpoints.min.js"></script>
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
+            <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
             <script>
-                $(document).ready(function() {
-                    // Mostrar información en un modal al hacer clic en las imágenes de la galería
-                    $('.gallery a').on('click', function(e) {
-                        e.preventDefault();
-                        var info = $(this).data('info');
-                        $('#modal-info').html('<p>' + info + '</p>');
-                        $('#image-modal').css('display', 'block');
-                    });
+                // Inicializa EmailJS con tu User ID
+                emailjs.init('TU_USER_ID'); // Reemplaza con tu User ID de EmailJS
 
-                    // Mostrar información en un modal al hacer clic en las primeras dos imágenes
-                    $('.image img').on('click', function(e) {
-                        e.preventDefault();
-                        var info = $(this).data('info');
-                        $('#modal-info').html('<p>' + info + '</p>');
-                        $('#image-modal').css('display', 'block');
-                    });
+                // Maneja el envío del formulario
+                document.getElementById('contact-form').addEventListener('submit', function(event) {
+                    event.preventDefault();
 
-                    // Mostrar información y video al hacer clic en "Conoce Más"
-                    $('.know-more').on('click', function(e) {
-                        e.preventDefault();
-                        var info = $(this).data('info');
-                        var infoBox = $('<div class="video-info"><span class="close">X</span><p>' + info + '</p></div>');
-                        var videoContainer = $('<div class="video-container"><iframe src="https://www.youtube.com/embed/UJMGykaSPDQ" frameborder="0" allowfullscreen></iframe></div>');
-                        $('body').append(infoBox).append(videoContainer);
-                        $('.video-overlay').addClass('active');
-                        setTimeout(function() { 
-                            infoBox.addClass('active'); 
-                            videoContainer.addClass('active'); 
-                        }, 10);
+                    emailjs.send('service_kszr3ud', 'TU_TEMPLATE_ID', {
+                        user_name: document.getElementById('name').value,
+                        user_email: document.getElementById('email').value,
+                        message: document.getElementById('message').value
+                    }).then(function(response) {
+                        alert('¡Mensaje enviado con éxito! Te responderemos pronto.');
+                        document.getElementById('contact-form').reset();
+                        window.location.href = 'https://billieeilish101.github.io/NEXLLIFYS_SOLUTIONS_SANTIAGO/thanks.html';
+                    }, function(error) {
+                        alert('Error al enviar el mensaje: ' + error.text);
                     });
+                });
 
-                    // Cerrar el modal de imágenes
-                    $('.modal-close').on('click', function() {
+                // Mostrar información en un modal al hacer clic en las imágenes de la galería
+                $('.gallery a').on('click', function(e) {
+                    e.preventDefault();
+                    var info = $(this).data('info');
+                    $('#modal-info').html('<p>' + info + '</p>');
+                    $('#image-modal').css('display', 'block');
+                });
+
+                // Mostrar información en un modal al hacer clic en las primeras dos imágenes
+                $('.image img').on('click', function(e) {
+                    e.preventDefault();
+                    var info = $(this).data('info');
+                    $('#modal-info').html('<p>' + info + '</p>');
+                    $('#image-modal').css('display', 'block');
+                });
+
+                // Mostrar información y video al hacer clic en "Conoce Más"
+                $('.know-more').on('click', function(e) {
+                    e.preventDefault();
+                    var info = $(this).data('info');
+                    var infoBox = $('<div class="video-info"><span class="close">X</span><p>' + info + '</p></div>');
+                    var videoContainer = $('<div class="video-container"><iframe src="https://www.youtube.com/embed/UJMGykaSPDQ" frameborder="0" allowfullscreen></iframe></div>');
+                    $('body').append(infoBox).append(videoContainer);
+                    $('.video-overlay').addClass('active');
+                    setTimeout(function() { 
+                        infoBox.addClass('active'); 
+                        videoContainer.addClass('active'); 
+                    }, 10);
+                });
+
+                // Cerrar el modal de imágenes
+                $('.modal-close').on('click', function() {
+                    $('#image-modal').css('display', 'none');
+                });
+
+                // Cerrar el modal al hacer clic fuera del contenido
+                $(window).on('click', function(e) {
+                    if ($(e.target).is('#image-modal')) {
                         $('#image-modal').css('display', 'none');
-                    });
+                    }
+                });
 
-                    // Cerrar el modal al hacer clic fuera del contenido
-                    $(window).on('click', function(e) {
-                        if ($(e.target).is('#image-modal')) {
-                            $('#image-modal').css('display', 'none');
+                // Cerrar los cuadros de información del video
+                $(document).on('click', '.video-info .close', function() {
+                    $(this).parent().removeClass('active');
+                    $('.video-container').removeClass('active');
+                    $('.video-overlay').removeClass('active');
+                    setTimeout(function() { 
+                        $('.video-info, .video-container').remove(); 
+                    }, 300);
+                });
+
+                // Animación de arranque para el ícono de Dragon Ball
+                $('.dbz-icon').on('click', function(e) {
+                    var $icon = $(this).find('svg');
+                    $icon.addClass('start');
+                    setTimeout(function() {
+                        $icon.removeClass('start');
+                        // Restaurar la posición y opacidad después de la animación
+                        $icon.css({'transform': 'scaleX(1.2)', 'opacity': '1'});
+                    }, 600); // Duración de la animación
+                });
+
+                // Scroll animations
+                const sections = $('section');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            $(entry.target).addClass('visible');
+                            observer.unobserve(entry.target);
                         }
                     });
+                }, { threshold: 0.1 });
 
-                    // Cerrar los cuadros de información del video
-                    $(document).on('click', '.video-info .close', function() {
-                        $(this).parent().removeClass('active');
-                        $('.video-container').removeClass('active');
-                        $('.video-overlay').removeClass('active');
-                        setTimeout(function() { 
-                            $('.video-info, .video-container').remove(); 
-                        }, 300);
-                    });
+                sections.each(function() {
+                    observer.observe(this);
+                });
 
-                    // Animación de arranque para el ícono de Dragon Ball
-                    $('.dbz-icon').on('click', function(e) {
-                        var $icon = $(this).find('svg');
-                        $icon.addClass('start');
-                        setTimeout(function() {
-                            $icon.removeClass('start');
-                            // Restaurar la posición y opacidad después de la animación
-                            $icon.css({'transform': 'scaleX(1.2)', 'opacity': '1'});
-                        }, 600); // Duración de la animación
-                    });
-
-                    // Scroll animations
-                    const sections = $('section');
-                    const observer = new IntersectionObserver((entries) => {
+                // Text and image animations
+                const textsAndImages = $('p, li, .gallery a img');
+                textsAndImages.each(function() {
+                    $(this).css({ opacity: 0, transform: 'translateY(20px)' });
+                    const textObserver = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
-                                $(entry.target).addClass('visible');
-                                observer.unobserve(entry.target);
+                                $(entry.target).animate({
+                                    opacity: 1,
+                                    translateY: 0
+                                }, 600);
+                                textObserver.unobserve(entry.target);
                             }
                         });
-                    }, { threshold: 0.1 });
-
-                    sections.each(function() {
-                        observer.observe(this);
-                    });
-
-                    // Text and image animations
-                    const textsAndImages = $('p, li, .gallery a img');
-                    textsAndImages.each(function() {
-                        $(this).css({ opacity: 0, transform: 'translateY(20px)' });
-                        const textObserver = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    $(entry.target).animate({
-                                        opacity: 1,
-                                        translateY: 0
-                                    }, 600);
-                                    textObserver.unobserve(entry.target);
-                                }
-                            });
-                        }, { threshold: 0.5 });
-                        textObserver.observe(this);
-                    });
+                    }, { threshold: 0.5 });
+                    textObserver.observe(this);
                 });
             </script>
 
