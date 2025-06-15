@@ -507,7 +507,7 @@
                                         <h3>Soluciones en la Nube
                                             <a href="#automatizacion" class="dbz-icon scrolly">
                                                 <svg class="dbz-icon" viewBox="0 0 512 512">
-                                                    <path d="M256 32c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96 64c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192-128c-44.2 0-80 35.8-80 80s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 128c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                                                    <path d="M256 32c-99.3 0-180 80.7-180 180s80.7 180 180 180 180-80.7 180-180-80.7-180-180-180zm0 328c-81.6 0-148-66.4-148-148s66.4-148 148-148 148 66.4 148 148-66.4 148-148 148z"/>
                                                 </svg>
                                             </a>
                                         </h3>
@@ -579,7 +579,8 @@
                         </header>
                         <div class="content">
                             <p><strong>Nexlify Solutions</strong> está aquí para ayudarte a alcanzar tus objetivos tecnológicos. Envíanos un mensaje y te responderemos en menos de 24 horas.</p>
-                            <form id="contact-form">
+                            <!-- CAMBIO: Añadido action y method para Formspree -->
+                            <form id="contact-form" action="https://formspree.io/f/mblyyoja" method="POST">
                                 <div class="fields">
                                     <div class="field half">
                                         <input type="text" name="name" id="name" placeholder="Nombre" required />
@@ -634,13 +635,7 @@
             <script src="assets/js/breakpoints.min.js"></script>
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-            <script>
-                (function() {
-                    // Inicializa EmailJS con tu Public Key
-                    emailjs.init("TU_PUBLIC_KEY"); // Reemplaza con tu Public Key de EmailJS
-                })();
-            </script>
+            <!-- CAMBIO: Eliminado script de EmailJS -->
             <script>
                 $(document).ready(function() {
                     // Mostrar información en un modal al hacer clic en las imágenes de la galería
@@ -739,16 +734,22 @@
                         textObserver.observe(this);
                     });
 
-                    // Manejar el envío del formulario con EmailJS
-                    document.getElementById('contact-form').addEventListener('submit', function(event) {
+                    // CAMBIO: Nuevo manejador para Formspree
+                    $('#contact-form').on('submit', function(event) {
                         event.preventDefault();
-                        emailjs.sendForm('service_kszr3ud', 'TU_TEMPLATE_ID', this)
-                            .then(function() {
-                                alert('Mensaje enviado con éxito!');
-                                document.getElementById('contact-form').reset();
-                            }, function(error) {
-                                alert('Error al enviar el mensaje: ' + JSON.stringify(error));
-                            });
+                        const form = $(this);
+                        $.ajax({
+                            url: form.attr('action'),
+                            method: 'POST',
+                            data: form.serialize(),
+                            success: function() {
+                                alert('¡Mensaje enviado con éxito!');
+                                form[0].reset();
+                            },
+                            error: function() {
+                                alert('Error al enviar el mensaje. Inténtalo de nuevo.');
+                            }
+                        });
                     });
                 });
             </script>
