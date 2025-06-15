@@ -579,16 +579,13 @@
                         </header>
                         <div class="content">
                             <p><strong>Nexlify Solutions</strong> está aquí para ayudarte a alcanzar tus objetivos tecnológicos. Envíanos un mensaje y te responderemos en menos de 24 horas.</p>
-                            <form action="https://formspree.io/f/{your-form-id}" method="POST">
+                            <form id="contact-form">
                                 <div class="fields">
                                     <div class="field half">
                                         <input type="text" name="name" id="name" placeholder="Nombre" required />
                                     </div>
                                     <div class="field half">
                                         <input type="email" name="email" id="email" placeholder="Correo Electrónico" required />
-                                    </div>
-                                    <div class="field half">
-                                        <input type="email" name="sender_email" id="sender_email" placeholder="Correo de quien envía" required />
                                     </div>
                                     <div class="field">
                                         <textarea name="message" id="message" placeholder="Mensaje" rows="7" required></textarea>
@@ -637,6 +634,13 @@
             <script src="assets/js/breakpoints.min.js"></script>
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+            <script>
+                (function() {
+                    // Inicializa EmailJS con tu Public Key
+                    emailjs.init("TU_PUBLIC_KEY"); // Reemplaza con tu Public Key de EmailJS
+                })();
+            </script>
             <script>
                 $(document).ready(function() {
                     // Mostrar información en un modal al hacer clic en las imágenes de la galería
@@ -733,6 +737,18 @@
                             });
                         }, { threshold: 0.5 });
                         textObserver.observe(this);
+                    });
+
+                    // Manejar el envío del formulario con EmailJS
+                    document.getElementById('contact-form').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        emailjs.sendForm('service_kszr3ud', 'TU_TEMPLATE_ID', this)
+                            .then(function() {
+                                alert('Mensaje enviado con éxito!');
+                                document.getElementById('contact-form').reset();
+                            }, function(error) {
+                                alert('Error al enviar el mensaje: ' + JSON.stringify(error));
+                            });
                     });
                 });
             </script>
