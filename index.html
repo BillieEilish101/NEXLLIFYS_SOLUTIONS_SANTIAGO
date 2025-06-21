@@ -13,6 +13,8 @@
         <meta name="keywords" content="consultoría informática, transformación digital, ciberseguridad, desarrollo software, soluciones tecnológicas" />
         <link rel="stylesheet" href="assets/css/main.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Importar fuentes de Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
         <style>
             /* Background */
             body {
@@ -55,6 +57,8 @@
                 text-shadow: 0 0 6px #1E40AF;
                 position: relative;
                 overflow: hidden;
+                font-family: 'Lora', serif; /* Fuente romana para títulos */
+                font-weight: 700; /* Peso bold para mayor énfasis */
             }
             h1 {
                 font-size: 2.5em; /* Reducido de ~3em (valor por defecto en main.css) para evitar que la "s" se corte */
@@ -74,6 +78,8 @@
                 transition: transform 0.3s ease, text-shadow 0.3s ease;
                 text-shadow: 0 0 10px #98FB98; /* Brillo verde claro */
                 animation: glowTextRealTime 2s infinite ease-in-out; /* Animación de brillo en tiempo real */
+                font-family: 'Caveat', cursive; /* Fuente cursiva legible para texto general */
+                font-weight: 500; /* Peso medio para mejor legibilidad */
             }
             p:hover, li:not(.feature-icons li):hover {
                 transform: translateY(-3px);
@@ -98,6 +104,8 @@
                 border: 2px solid #F97316; /* Borde naranja */
                 padding: 0.5em;
                 border-radius: 5px;
+                font-family: 'Caveat', cursive; /* Fuente cursiva legible para íconos de características */
+                font-weight: 500; /* Peso medio para legibilidad */
             }
             .feature-icons li:hover {
                 transform: translateY(-1px); /* Movimiento más sutil */
@@ -107,6 +115,8 @@
             .items li a[href^="mailto"], .items li a[href^="tel"] {
                 color: #FFFF00; /* Amarillo */
                 text-shadow: none; /* Sin iluminación */
+                font-family: 'Caveat', cursive; /* Fuente cursiva legible para enlaces de contacto */
+                font-weight: 500; /* Peso medio para legibilidad */
             }
 
             /* Form inputs styling (Apple-like design) */
@@ -119,6 +129,8 @@
                 font-size: 1em;
                 backdrop-filter: blur(10px); /* Efecto de desenfoque */
                 transition: border-color 0.3s ease;
+                font-family: 'Caveat', cursive; /* Fuente cursiva legible para inputs */
+                font-weight: 500; /* Peso medio para legibilidad */
             }
             .field input:focus, .field textarea:focus {
                 border-color: rgba(255, 255, 255, 0.7); /* Borde más claro al enfocar */
@@ -126,6 +138,8 @@
             }
             .field input::placeholder, .field textarea::placeholder {
                 color: rgba(255, 255, 255, 0.7); /* Placeholder claro */
+                font-family: 'Caveat', cursive; /* Fuente cursiva legible para placeholders */
+                font-weight: 500; /* Peso medio para legibilidad */
             }
 
             /* Buttons */
@@ -137,6 +151,8 @@
                 padding: 0.5em 1em;
                 animation: swayButton 2s infinite ease-in-out;
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
+                font-family: 'Caveat', cursive; /* Fuente cursiva legible para botones */
+                font-weight: 500; /* Peso medio para legibilidad */
             }
             .button:hover, .button.primary:hover, .button.large:hover {
                 transform: scale(1.1);
@@ -208,6 +224,8 @@
                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
                 border: 4px solid #98FB98; /* Borde verde claro */
                 animation: zoomIn 0.6s ease;
+                font-family: 'Caveat', cursive; /* Fuente cursiva legible para modal */
+                font-weight: 500; /* Peso medio para legibilidad */
             }
             @keyframes zoomIn {
                 0% { opacity: 0; transform: scale(0.5); }
@@ -276,6 +294,8 @@
                 line-height: 1.6;
                 overflow-y: auto;
                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                font-family: 'Caveat', cursive; /* Fuente cursiva legible para video-info */
+                font-weight: 500; /* Peso medio para legibilidad */
             }
             .video-info.active {
                 display: block;
@@ -745,7 +765,7 @@
                                 form[0].reset();
                             },
                             error: function() {
-                                alert('TU MENSAJE FUE EXITOSO GRACIAS'); // CAMBIO: Mensaje actualizado
+                                alert('TU MENSAJE FUE EXITOSO GRACIAS');
                             }
                         });
                     });
